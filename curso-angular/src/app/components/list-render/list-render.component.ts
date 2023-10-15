@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Animal } from 'src/app/Animal';
 
+import { ListService } from 'src/app/services/list.service';
+
 @Component({
   selector: 'app-list-render',
   templateUrl: './list-render.component.html',
@@ -17,12 +19,19 @@ export class ListRenderComponent {
 
   animalDetails = ''
 
+  constructor(private listService: ListService){}
+
   showAge(animal: Animal){
     if(animal.age > 1){
       this.animalDetails = `O pet ${animal.name} tem ${animal.age} anos.`
     } else {
       this.animalDetails = `O pet ${animal.name} tem ${animal.age} ano.`
     }
+  }
+
+  removeAnimal(animal: Animal){
+    console.log('Removendo animal...')
+    this.animals = this.listService.remove(this.animals, animal)
   }
 
 }
